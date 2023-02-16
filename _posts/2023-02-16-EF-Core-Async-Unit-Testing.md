@@ -2,6 +2,10 @@
 title: Unit testing with EF Core async operations
 date: 2023-02-16
 ---
+<<<<<<< HEAD
+=======
+# Unit Testing with EF Core Async Operations 
+>>>>>>> origin/main
 
 In the following article I propose a solution for a problem that I faced trying to unit test some business logic code that use async extensions methods to work on collecitons.
 
