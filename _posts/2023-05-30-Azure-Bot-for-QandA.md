@@ -32,17 +32,7 @@ Come potenziale conseguenza, migliorando la capacità dell'utente di trovare aut
 
 Un altro motivo potrebbe essere la raccolta di dati sui tipi di domande per migliorare il servizio stesso. Con il servizio di chat, le domande possono essere registrate per identificare eventuali domande senza risposta. Ciò consente di migliorare il servizio integrando le informazioni (aggiungendo nuove informazioni o semplicemente inserendo forme alternative alle domande già disponibili).
 
-> -- DA QUI CHIEDERE REVISIONE A CHATGPT --
-> -- DA QUI RIVEDERE I CONTENUTI --
-
-## Ma come faccio ad aggiornare il bot? Devo mantenere una FAQ separata?
-
-Con l'utilizzo di Azure Bot e di [Language Studio](https://language.cognitive.azure.com/home) la gestione della base di conoscenza è molto semplice.
-
-Si può decidere di utilizzare una FAQ già esistente (sia esso un documento Word, PDF o una pagina HTML), oppure si può decidere di utilizzare le funzionalità di Language Studio per gestire la redazione delle domande e delle risposte.
-
-### 
-Tra le funzionalità di rilievo di Language Studio troviamo la possibilità di 
+> -- TODO rivedere paragrafo e check con ChatGPT --
 
 ## Come creare il bot e testarlo
 
@@ -70,6 +60,25 @@ Supponendo di avere già a disposizone una sottoscrizione Azure i passi da segui
    che utilizza un template per creare il bot e l'infrastruttura relativa.
 
 A questo punto si ha a disposizione un servizio Azure Bot da integrare nei sistemi di interesse (come ad es. Teams).
+
+> PARAGRAFO SEGUENTE GIA' TESTATO
+## Ma come faccio ad aggiornare il bot? Devo mantenere una FAQ separata?
+
+Con l'utilizzo di Azure Bot e di [Language Studio](https://language.cognitive.azure.com/home), la gestione dell'aggiornamento del bot e della base di conoscenza è molto semplice.
+
+Puoi scegliere di utilizzare una FAQ già esistente, che può essere un documento Word, un PDF o una pagina HTML. In alternativa, puoi utilizzare direttamente Language Studio per redigere la FAQ.
+
+Language Studio mette a disposizione diverse funzionalità specifiche per il servizio di chat che ci interessa:
+
+- Interfaccia semplice per gestire le domande e le risposte.
+- Test della chat integrata che consente di verificare immediatamente le modifiche apportate.
+- Possibilità di inserire domande alternative. Questo è utile nel caso in cui una domanda venga formulata in modi diversi e il riconoscimento del linguaggio naturale non riesca a identificare una risposta già presente nella base di conoscenza.
+- Addestramento semplificato e deployment verso il servizio di Azure.
+
+> -- TODO inserire print screen di Language Studio - 
+
+
+> -- TODO rivedere seguito e check con ChatGPT --
 
 ### Personalizzazione
 
@@ -113,3 +122,6 @@ gli utenti con l'applicazione stessa.
 
 Altra possibilità è quella di creare dei classificatori di testo automatici ecc.
 
+> -- TODO Chiedere revisione a Luca e Margherita --  
+> -- TODO Inserire chi siamo di Audris e riferimento --  
+> -- TODO Preparare testo per post da inserire in linked in e su sito Audris --
