@@ -20,7 +20,7 @@ Tuttavia, esistono anche dei motivi per non farlo, come ad esempio il costo (sep
 Se le informazioni che desideriamo fornire sono limitate
 e possono essere presentate all'utente tramite una piccola pagina web, allora non è necessario trasformare la stessa in una chat.
 
-Supponiamo invece di considerare una base di conoscenza abbastanza ampia attraverso la chat. Quali sono i motivi potrebbero spingerci a scegliere questo tipo di strumento?
+Supponiamo invece di considerare una base di conoscenza abbastanza ampia attraverso la chat. Quali sono i motivi che potrebbero spingerci a scegliere questo tipo di strumento?
 
 Il motivo principale dovrebbe essere quello di semplificare l'esperienza utente.
 In questo senso, la chat mette a disposizione una *ricerca di tipo semantico*.
@@ -32,36 +32,39 @@ Come potenziale conseguenza, migliorando la capacità dell'utente di trovare aut
 
 Un altro motivo potrebbe essere la raccolta di dati sui tipi di domande per migliorare il servizio stesso. Con il servizio di chat, le domande possono essere registrate per identificare eventuali domande senza risposta. Ciò consente di migliorare il servizio integrando le informazioni (aggiungendo nuove informazioni o semplicemente inserendo forme alternative alle domande già disponibili).
 
-> -- TODO rivedere paragrafo e check con ChatGPT --
-
 ## Come creare il bot e testarlo
 
-La procedura per creare un bot è descritta dettagliatamente (e a mio avviso in modo efficace) nel tutorial
-[Build a bot with the Language Service and Azure Bot Service - MS Learn](https://learn.microsoft.com/en-us/training/modules/build-faq-chatbot-qna-maker-azure-bot-service/), 
-ed in particolare nell'esercizio collegato
+La procedura dettagliata per creare un bot è descritta nel tutorial
+[Build a bot with the Language Service and Azure Bot Service - MS Learn](https://learn.microsoft.com/en-us/training/modules/build-faq-chatbot-qna-maker-azure-bot-service/). Inoltre si può seguire l'esercizio collegato ad esso collegato
 [Explore question answering](https://microsoftlearning.github.io/AI-900-AIFundamentals/instructions/04d-create-a-bot.html).  
-Pertanto in questa sede mi limito a riportare un piccolo riassunto dei passi da seguire e
-di alcuni aspetti da tenere in considerazione.
 
-Supponendo di avere già a disposizone una sottoscrizione Azure i passi da seguire sono i seguenti:
+Di seguito ci limiteremo quindi a vedere un elenco dei passi prinicipali (partendo dal presupposto di avere già una sottoscrizione Azure attiva) evidenziando anche alcuni aspetti da tenere in considerazione.
 
-1) Creare un nuovo [Language service](https://learn.microsoft.com/en-us/azure/cognitive-services/language-service/overview)
-   Questo servizio è la base per la gestione del riconoscimento del testo ed il punto di partenza
-   per implementare soluzioni che utilizzano tale tecnologia. Il servizio di per se riunisce diverse funzionalità,
-   nel nostro caso siamo interessati a utilizzare quelle collegate alla QnA.
-2) Utilizzare [Language Studio](https://language.cognitive.azure.com/home) per creare un *progetto* ed addestrare il sistema
-   fornendo l'elenco delle domande e risposte della nostra FAQ
-3) Testare il funzionamento del sistema con la funzionalità di Test integrata, eventualmente integrare le domande con
-   domande alternative per affinare le capacità di riconoscimento del sistema.
-4) Dopo aver validato in Language Studio il funzionamento del sistema, si effettua il Deploy (sul language service collegato), che consiste
-   nel creare un modello su Azure basato sulle coppie di domande e risposte fornite.
-5) A questo punto si può creare un [Azure Bot](https://learn.microsoft.com/en-us/azure/bot-service/?view=azure-bot-service-4.0).
-   Per comodità da Language Studio nella pagina di deploy è già presente disponibile un link
-   che utilizza un template per creare il bot e l'infrastruttura relativa.
+1) Creare un nuovo servizio [Language](https://learn.microsoft.com/en-us/azure/cognitive-services/language-service/overview).
+   Questo servizio costituisce la base per la gestione del riconoscimento del testo ed è il punto di partenza per implementare soluzioni che utilizzano questa tecnologia. Il servizio unisce diverse funzionalità,
+   ma per il nostro caso d'uso siamo ci interessa particolarmente la QnA (domande e risposte).
+2) Utilizzare [Language Studio](https://language.cognitive.azure.com/home) per creare un *progetto* ed addestrare il sistema: Language Studio permette di crerare un progetto e fornire l'elenco delle domande e risposte della nostra FAQ per addestrare il sistema.
+3) Testare il sistema utilizzando la funzionalità di Test integrata e , se necessario, integrare le domande con alternative per migliorare le capacità di riconoscimento del sistema.
+4) Dopo aver validato il funzionamento del sistema, eseguire il Deploy sul servizio Language Service collegato. Questo step consisnte nel creare nel creare un modello su Azure basato sulle coppie di domande e risposte fornite.
+5) A questo punto, si può creare un [Azure Bot](https://learn.microsoft.com/en-us/azure/bot-service/?view=azure-bot-service-4.0).
+   Per comodità, nella pagina di deploy di Language Studio è già disponibile un link
+   ad un wizard, che utilizzando un template predefinito, permette di creare il bot e l'infrastruttura correlata.
 
-A questo punto si ha a disposizione un servizio Azure Bot da integrare nei sistemi di interesse (come ad es. Teams).
+Una volta completati questi passaggi, avrai a disposizione un servizio Azure Bot da integrare nei tuoi sistemi di interesse, come ad esempio Microsoft Teams.
 
-> PARAGRAFO SEGUENTE GIA' TESTATO
+Da tenere in considerazione nella creazione del bot i seguenti aspetti.
+
+- La sottoscrizione di Azure prevede la possibilità di creare un solo servizio Language Service gratuito. Se si desidera creare più di un bot, sarà necessario attivare un piano a pagamento.  
+- Il bot può essere creato in diverse lingue, ma è necessario scegliere una lingua principale. Questa scelta è importante in quanto determina la lingua utilizzata per la gestione della chat.
+
+In particolare in relazione al piano gratuito i seguenti limiti sono da tenere in considerazione:
+
+- Limite di 10.000 transazioni al mese. Se si supera questo limite, il servizio non sarà più disponibile fino al mese successivo.
+- Limite di 3.000 transazioni al minuto. Se si supera questo limite, il servizio non sarà più disponibile fino al minuto successivo.
+- Limite di 1.000 transazioni al secondo. Se si supera questo limite, il servizio non sarà più disponibile fino al secondo successivo.
+
+> Per maggiori informazioni sui piani disponibili, si può fare riferimento alla [pagina di pricing](https://azure.microsoft.com/pricing/details/cognitive-services/language-understanding-intelligent-services/).
+
 ## Ma come faccio ad aggiornare il bot? Devo mantenere una FAQ separata?
 
 Con l'utilizzo di Azure Bot e di [Language Studio](https://language.cognitive.azure.com/home), la gestione dell'aggiornamento del bot e della base di conoscenza è molto semplice.
@@ -75,14 +78,48 @@ Language Studio mette a disposizione diverse funzionalità specifiche per il ser
 - Possibilità di inserire domande alternative. Questo è utile nel caso in cui una domanda venga formulata in modi diversi e il riconoscimento del linguaggio naturale non riesca a identificare una risposta già presente nella base di conoscenza.
 - Addestramento semplificato e deployment verso il servizio di Azure.
 
-> -- TODO inserire print screen di Language Studio - 
+> -- TODO inserire print screen di Language Studio --
+
+## Cosa fare dopo la creazione della chat
+
+Una volta creato il bot, è possibile utilizzarlo in diversi modi.
+Come già accennato i canali attraverso cui utilizzare il bot sono diversi, e gestibili attraverso la voce di menu *Channels*.
+
+Vediamone qualcuno in dettaglio.
+
+### Integrazione in Microsoft Teams
+
+L'integrazione in [Microsoft Teams](https://learn.microsoft.com/en-us/azure/bot-service/channel-connect-teams?view=azure-bot-service-4.0) è sicuramente una delle più interessanti.
+Permette infatti di integrare facilmente una FAQ all'interno del sistema di comunicazione aziendale, senza dover installare alcuna applicazione aggiuntiva.
+
+> L'attivazione del canale su Teams richiede l'accettazione di alcune condizioni di utilizzo. In particolare, è necessario accettare che i dati vengano trasferiti al servizio di Microsoft Teams. Il dettaglio di tali condizioni è riportato in [Microsoft Channel Pubblication Terms](https://www.botframework.com/content/bot-service-channels-terms.htm) e [Informativa sulla privacy](https://privacy.microsoft.com/it-it/privacystatement).
+
+L'attivazione avviene attraverso la voce di menu *Channels* e non richiede alcuna configurazione particolare (se non quella di accettare le condizioni di utilizzo). 
+
+Una volta attivato il canale, è possibile utilizzare in modalità di test il bot all'interno di Teams semplicemente andando a selezionare la voce `Open in Teams` dall'elenco dei canali (come nella seguente immagine).
+
+![Elenco canali](./2023-05-30-Azure-bot-for-QandA-content/Channels.png)
+
+Una volta creato l'Azure Bot service è possibile andare a integrare lo stesso in teams in modo relativamente semplice.
+
+Questa operazione si fa attraverso la voce di menu Channels andando a selezionare *Microsoft Teams*. Una volta aperto il link in teams viene creato un nuovo canale di chat in Teams, su cui è possibile iniziare a dialogare con il bot stesso.
+
+![Chat in Teams](./2023-05-30-Azure-bot-for-QandA-content/TeamsChat.png)
+
+Una volta verificato il funzionamento, è possibile distribuire il bot all'interno di Teams come app. Le modalità con cui distribuire l'app sono disponibili in [Publish your bot to Teams](https://docs.microsoft.com/en-us/azure/bot-service/channel-connect-teams?view=azure-bot-service-4.0#publish-your-bot-to-teams).
+
+### Integrazione in una pagina HTML
+
+Un'altra possibilità è quella di integrare il bot in una pagina HTML.
+Per fare questo è necessario attivare il canale *Web Chat* e configurare il canale stesso. La procedura di dettaglio è descritta in [Connect a bot to Web Chat](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0#get-your-bot-secret-key).
+
+Una volta attivato il canale Web Chat occorre aggiungere un *sito*, è infatto a livello di sito che vengono rese disponibli le chiavi per accedere alla chat.
 
 
-> -- TODO rivedere seguito e check con ChatGPT --
 
-### Personalizzazione
+## Personalizzazione
 
-#### Messaggio di benvenuto
+### Messaggio di benvenuto
 
 Se avete impostato la lingua in italiano è opportuno fare in modo che anche il messaggio iniziale sia in italiano.  
 Di default infatti il bot inizia la conversazione (almeno sui canali web) con la frase "Hello and Welcome!".
@@ -90,27 +127,6 @@ Di default infatti il bot inizia la conversazione (almeno sui canali web) con la
 La personalizzazione di questa frase non è immediata. Infatti occorre andare a configurare l'*App Service* associato
 al bot. Nel caso specifico occorre aggiungere l'impostazione `DefaultWelcomeMessage` nella sezione *Configuration > Application Settings".
 
-
-
-
-
-### Punti di attenzione
-
-La procedura come si può vedere è tutto sommato semplice, considerando il tipo di servizio che si riesce ad ottenere,
-ci sono però alcune cose da tenere in considerazione.
-
-Language Service richiede l'utilizzo di un [Azure Cognitive Search Service](https://learn.microsoft.com/azure/search/search-what-is-azure-search), nella sottoscrizione è possibile attivare un servizio di questo tipo utilizzando un tier gratuito (ed uno solo). Per cui nel caso sia già utilizzato un servizio di questo tipo e si sfrutti il tier gratuito sarà necessario attivare uno degli altri piani a pagamento.
-
-## Come integrare il bot in teams
-
-Una volta creato l'Azure Bot service è possibile andare a integrare lo stesso in teams in modo relativamente semplice.
-
-Questa operazione si fa attraverso la voce di menu Channels andando a selezionare *Microsoft Teams*
-
-## Come integrare il bot in una web application
-
-Sempre attraverso i Channels è possibile configurare la chat di modo che sia inclusa in un sito web.
-Per fare questo considerare [Connect a bot to Web Chat](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0#get-your-bot-secret-key).
 
 ## Azure Bot non serve solo a questo ...
 
