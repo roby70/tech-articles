@@ -82,10 +82,10 @@ Language Studio mette a disposizione diverse funzionalità specifiche per il ser
 
 ## Cosa fare dopo la creazione della chat
 
-Una volta creato il bot, è possibile utilizzarlo in diversi modi.
-Come già accennato i canali attraverso cui utilizzare il bot sono diversi, e gestibili attraverso la voce di menu *Channels*.
+Una volta creato il bot, ci sono diversi modi in cui puoi utilizzarlo.
+Come già accennato, puoi gestire i canali attraverso cui il bot sarà accessibile utilizzando la voce di menu *Channels*.
 
-Vediamone qualcuno in dettaglio.
+Vediamo le caratteristiche e la configurazione di alcuni di questi canali in dettaglio.
 
 ### Integrazione in Microsoft Teams
 
@@ -113,9 +113,38 @@ Una volta verificato il funzionamento, è possibile distribuire il bot all'inter
 Un'altra possibilità è quella di integrare il bot in una pagina HTML.
 Per fare questo è necessario attivare il canale *Web Chat* e configurare il canale stesso. La procedura di dettaglio è descritta in [Connect a bot to Web Chat](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0#get-your-bot-secret-key).
 
+Di seguito un esempio di integrazione in una pagina HTML.
+
+![Web site sample](./2023-05-30-Azure-bot-for-QandA-content/ChatInHTML.png)
+
+#### Chiavi per l'integrazione in una pagina HTML
+
 Una volta attivato il canale Web Chat occorre aggiungere un *sito*, è infatto a livello di sito che vengono rese disponibli le chiavi per accedere alla chat.
 
+Per ogni sito vengono messe a disposizioni delle chiavi con cui è possibile accedere alla chat. Queste chiavi sono utilizzate per configurare la chat all'interno della pagina HTML. In particolare l'integrazione nella pagina HTML può avvenire attraverso l'inserimento di un tag `<iframe>`, tag che viene proposto direttamente nella pagina di configurazione di Azure.
 
+![Web site registration](./2023-05-30-Azure-bot-for-QandA-content/WebSiteRegistration.png)
+
+Benchè il template per il tag iFrame indichi di inserire il secret direttamente nel codice HTML, questo approccio è sconsigliato. Infatti in questo modo le chiavi vengono rese disponibili in chiaro a chiunque accede alla pagina HTML, rendendo possibile l'utilizzo del bot da parte di chiunque nel proprio sito (situazione tipicamente da non tenere in considerazione).
+
+Per ovviare a questo problema, è possibile utilizzare un approccio che prevede l'utilizzo di un server per la gestione di chiavi *temporanee*. É infatti possibile ottnere una token provvisorio all'endpoint `https://webchat.botframework.com/api/tokens`, utilizzando le chiavi di accesso al sito. Il token ottenuto può essere utilizzato nel tag iFrame in alternativa al secret, semplicemente sostituendo `?s=<secret>` con `?t=<token>`.
+
+> IMPORTANTE: in questo tipo di soluzione il token è comunque esposto pubblicamente, ma la sua durata nel tempo e la possibilità di rigenerarlo periodicamente, rende questo approccio più sicuro rispetto all'utilizzo del secret. Per maggiori dettagli puoi far riferimento alla [documentazione ufficiale](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0).  
+
+Di seguito un esempio di codice che può essere utilizzato in ASP.NET per recuperare il token e impostare l'attributo `src` del tag `iFrame`.
+
+```csharp
+using (var requestMessage = 
+      new HttpRequestMessage(HttpMethod.Get, "https://webchat.botframework.com/api/tokens")) { 
+      requestMessage.Headers.Authorization = 
+         new AuthenticationHeaderValue("BotConnector", mySecret);
+      var result = await HttpClient.SendAsync(requestMessage);
+      var webChatToken = (await result.Content.ReadAsStringAsync())
+         // la response con il token contiene le virgolette all'inizio e alla fine
+         .Trim('"'); 
+      ChatUrl = $"{WebChatConfig.ChatUrl}?t={webChatToken}";
+}
+```
 
 ## Personalizzazione
 
@@ -126,6 +155,8 @@ Di default infatti il bot inizia la conversazione (almeno sui canali web) con la
 
 La personalizzazione di questa frase non è immediata. Infatti occorre andare a configurare l'*App Service* associato
 al bot. Nel caso specifico occorre aggiungere l'impostazione `DefaultWelcomeMessage` nella sezione *Configuration > Application Settings".
+
+-- TODO verificare come personalizzare il nome del bot in Teams
 
 
 ## Azure Bot non serve solo a questo ...
