@@ -90,23 +90,21 @@ Vediamo le caratteristiche e la configurazione di alcuni di questi canali in det
 ### Integrazione in Microsoft Teams
 
 L'integrazione in [Microsoft Teams](https://learn.microsoft.com/en-us/azure/bot-service/channel-connect-teams?view=azure-bot-service-4.0) è sicuramente una delle più interessanti.
-Permette infatti di integrare facilmente una FAQ all'interno del sistema di comunicazione aziendale, senza dover installare alcuna applicazione aggiuntiva.
+Permette di integrare facilmente una FAQ all'interno del sistema di comunicazione aziendale senza dover installare alcuna applicazione aggiuntiva.
 
-> L'attivazione del canale su Teams richiede l'accettazione di alcune condizioni di utilizzo. In particolare, è necessario accettare che i dati vengano trasferiti al servizio di Microsoft Teams. Il dettaglio di tali condizioni è riportato in [Microsoft Channel Pubblication Terms](https://www.botframework.com/content/bot-service-channels-terms.htm) e [Informativa sulla privacy](https://privacy.microsoft.com/it-it/privacystatement).
+> Tuttavia, l'attivazione del canale su Teams richiede l'accettazione di alcune condizioni di utilizzo. In particolare, è necessario accettare che i dati vengano trasferiti al servizio di Microsoft Teams. I dettagli di tali condizioni sono riportati in [Microsoft Channel Pubblication Terms](https://www.botframework.com/content/bot-service-channels-terms.htm) e [Informativa sulla privacy](https://privacy.microsoft.com/it-it/privacystatement).
 
-L'attivazione avviene attraverso la voce di menu *Channels* e non richiede alcuna configurazione particolare (se non quella di accettare le condizioni di utilizzo). 
+L'attivazione  del canale può essere effettuata tramite la voce *Channels* e non richiede alcuna configurazione particolare, a parte l'accettazione delle condizioni di utilizzo.
 
-Una volta attivato il canale, è possibile utilizzare in modalità di test il bot all'interno di Teams semplicemente andando a selezionare la voce `Open in Teams` dall'elenco dei canali (come nella seguente immagine).
+Una volta attivato il canale, puoi testare il bot all'interno di Teams selezionando  semplicemente la voce `Open in Teams` dall'elenco dei canali, come mostrato nell'immagine seguente:
 
 ![Elenco canali](./2023-05-30-Azure-bot-for-QandA-content/Channels.png)
 
-Una volta creato l'Azure Bot service è possibile andare a integrare lo stesso in teams in modo relativamente semplice.
-
-Questa operazione si fa attraverso la voce di menu Channels andando a selezionare *Microsoft Teams*. Una volta aperto il link in teams viene creato un nuovo canale di chat in Teams, su cui è possibile iniziare a dialogare con il bot stesso.
+A seguito di ciò, verrà creato un nuovo canale di chat in Teams, dove potrai iniziare a interagire con il bot stesso.
 
 ![Chat in Teams](./2023-05-30-Azure-bot-for-QandA-content/TeamsChat.png)
 
-Una volta verificato il funzionamento, è possibile distribuire il bot all'interno di Teams come app. Le modalità con cui distribuire l'app sono disponibili in [Publish your bot to Teams](https://docs.microsoft.com/en-us/azure/bot-service/channel-connect-teams?view=azure-bot-service-4.0#publish-your-bot-to-teams).
+Dopo aver verificato il funzionamento, puoi distribuire il bot all'interno di Teams come un'app. Le modalità per distribuire l'app sono disponibili nella sezione [Publish your bot to Teams](https://docs.microsoft.com/en-us/azure/bot-service/channel-connect-teams?view=azure-bot-service-4.0#publish-your-bot-to-teams).
 
 ### Integrazione in una pagina HTML
 
