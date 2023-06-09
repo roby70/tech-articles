@@ -109,7 +109,7 @@ Dopo aver verificato il funzionamento, puoi distribuire il bot all'interno di Te
 ### Integrazione in una pagina HTML
 
 Un'altra possibilità è quella di integrare il bot in una pagina HTML.
-Per fare questo è necessario attivare il canale *Web Chat* e configurare il canale stesso. La procedura di dettaglio è descritta in [Connect a bot to Web Chat](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0#get-your-bot-secret-key).
+Per fare ciò, è necessario attivare il canale *Web Chat* e configurarlo. La procedura di dettaglio è descritta in [Connect a bot to Web Chat](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0#get-your-bot-secret-key).
 
 Di seguito un esempio di integrazione in una pagina HTML.
 
@@ -117,19 +117,19 @@ Di seguito un esempio di integrazione in una pagina HTML.
 
 #### Chiavi per l'integrazione in una pagina HTML
 
-Una volta attivato il canale Web Chat occorre aggiungere un *sito*, è infatto a livello di sito che vengono rese disponibli le chiavi per accedere alla chat.
+Una volta attivato il canale Web Chat, è necessario aggiungere un *sito*. È infatti a livello di sito che vengono fornite le chiavi per accedere alla chat.
 
-Per ogni sito vengono messe a disposizioni delle chiavi con cui è possibile accedere alla chat. Queste chiavi sono utilizzate per configurare la chat all'interno della pagina HTML. In particolare l'integrazione nella pagina HTML può avvenire attraverso l'inserimento di un tag `<iframe>`, tag che viene proposto direttamente nella pagina di configurazione di Azure.
+Per ogni sito vengono generate delle chiavi che consentono l'accesso alla chat. Queste chiavi vengono utilizzate per configurare la chat all'interno della pagina HTML. In particolare l'integrazione nella pagina HTML può avvenire attraverso l'inserimento di un tag `<iframe>`, il quale viene proposto direttamente nella pagina di configurazione di Azure.
 
 ![Web site registration](./2023-05-30-Azure-bot-for-QandA-content/WebSiteRegistration.png)
 
-Benchè il template per il tag iFrame indichi di inserire il secret direttamente nel codice HTML, questo approccio è sconsigliato. Infatti in questo modo le chiavi vengono rese disponibili in chiaro a chiunque accede alla pagina HTML, rendendo possibile l'utilizzo del bot da parte di chiunque nel proprio sito (situazione tipicamente da non tenere in considerazione).
+Non è consigliato inserire il secret direttamente nel codice HTML, nonostante il template per il tag `<iframe>` lo suggerisca. Questo approccio esporrebbe le chiavi in chiaro a chiunque accede alla pagina HTML, permettendo a chiunque di utilizzare il bot nel proprio sito (una situazione che generalmente non è desiderabile).
 
-Per ovviare a questo problema, è possibile utilizzare un approccio che prevede l'utilizzo di un server per la gestione di chiavi *temporanee*. É infatti possibile ottnere una token provvisorio all'endpoint `https://webchat.botframework.com/api/tokens`, utilizzando le chiavi di accesso al sito. Il token ottenuto può essere utilizzato nel tag iFrame in alternativa al secret, semplicemente sostituendo `?s=<secret>` con `?t=<token>`.
+Per ovviare a questo problema, è possibile utilizzare un approccio che prevede l'utilizzo di un server per la gestione di chiavi *temporanee*. É infatti possibile ottnere un token provvisorio dall'endpoint `https://webchat.botframework.com/api/tokens`, utilizzando le chiavi di accesso al sito. Il token ottenuto può essere utilizzato nel tag iFrame in alternativa al secret, semplicemente sostituendo `?s=<secret>` con `?t=<token>`.
 
-> IMPORTANTE: in questo tipo di soluzione il token è comunque esposto pubblicamente, ma la sua durata nel tempo e la possibilità di rigenerarlo periodicamente, rende questo approccio più sicuro rispetto all'utilizzo del secret. Per maggiori dettagli puoi far riferimento alla [documentazione ufficiale](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0).  
+> IMPORTANTE: in questa soluzione, il token è comunque esposto pubblicamente, ma la sua durata limitata nel tempo e la possibilità di rigenerarlo periodicamente rendono questo approccio più sicuro rispetto all'utilizzo del secret. Per ulteriori dettagli, consulta la [documentazione ufficiale](https://learn.microsoft.com/azure/bot-service/bot-service-channel-connect-webchat?view=azure-bot-service-4.0).  
 
-Di seguito un esempio di codice che può essere utilizzato in ASP.NET per recuperare il token e impostare l'attributo `src` del tag `iFrame`.
+Di seguito è riportato un esempio di codice che può essere utilizzato in ASP.NET per recuperare il token e impostare l'attributo `src` del tag `<iFrame>`.
 
 ```csharp
 using (var requestMessage = 
